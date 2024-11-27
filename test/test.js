@@ -1299,6 +1299,24 @@ describe('Express xss Sanitize', function () {
           done();
         });
       });
+
+      describe('XSS bypass special characters & < > " \'', function () {
+        it('should replace harmless special characters back.', function (done) {
+          expect(
+            sanitize(
+              {
+                a: '& < >',
+              },
+              {
+                escapeSymbols: ['&', '<', '>', "'"],
+              },
+            ),
+          ).to.eql({
+            a: '& < >',
+          });
+          done();
+        });
+      });
     });
   });
 });
